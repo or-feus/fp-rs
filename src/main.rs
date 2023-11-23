@@ -1,54 +1,47 @@
+
+
 fn main() {
+    let num = Calc::new(10);
 
-    let mut num = Number { get_number: 10};
+    num.add(10)
+        .sub(5)
+        .mul(2)
+        .div(3); // expect ((((10 + 10) - 5) * 2)  / 3) = 10
 
-    num.add(10).sub(5); // expect 15;
-    num.print();
+    println!("Number: {:?}", &num);
+}
 
-
+#[derive(Debug, Copy, Clone)]
+struct Calc {
+    number: i32,
 }
 
 
-struct Number {
-    get_number: i32,
-}
-trait Calc {
-
-    fn add(&mut self, num: i32) -> self;
-    fn sub(&mut self, num: i32) -> self;
-    fn mul(&mut self, num: i32) -> self;
-    fn div(&mut self, num: i32) -> self;
-
-    fn print(&self);
-}
-
-
-impl Calc for Number {
-
-    fn add(&mut self, num: i32) -> self {
-
-        let temp = self.get_number + num;
-        self { get_number : temp }
+impl Calc {
+    pub fn new(num: i32) -> Self {
+        Self {
+            number: num
+        }
     }
 
-    fn sub(&mut self, num: i32) -> self {
-
-        let temp = self.get_number - num;
-        self { get_number : temp }
+    fn add(mut self, num: i32) -> Self {
+        self.number += num;
+        self
     }
 
-    fn mul(&mut self, num: i32) -> self{
-
-        let temp = self.get_number * num;
-        self { get_number : temp }
+    fn sub(mut self, num: i32) -> Self {
+        self.number -= num;
+        self
     }
 
-    fn div(&mut self, num: i32) -> self {
-        let temp = self.get_number / num;
-        self { get_number : temp }
+    fn mul(mut self, num: i32) -> Self {
+        self.number *= num;
+        self
     }
 
-    fn print(&self){
-        println!("{:?}", self.get_number);
+    fn div(mut self, num: i32) -> Self {
+        self.number /= num;
+        self
     }
+
 }
